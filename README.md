@@ -1,6 +1,6 @@
 # NEXUS OS
 
-> **Secure. Modular. Purpose-Built.**
+> **Secure. Modular. Contained.**
 
 NEXUS OS is a custom Linux-based operating system designed for portable cyberdecks, embedded workstations, and advanced computing platforms.
 
