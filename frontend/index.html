@@ -33,11 +33,21 @@
         <div class="card-label">UPTIME</div>
         <div class="card-value" id="uptime">--</div>
       </div>
-      <div class="card">
-        <div class="card-label">DATE</div>
-        <div class="card-value" id="date">--</div>
+      <div class="card" id="env-card" style="display:none;">
+        <div class="card-label">ROOM</div>
+        <div class="card-value" id="env-temp">--°C</div>
+        <div class="card-sub" id="env-humidity">--% HUMIDITY</div>
       </div>
     </main>
+
+    <section id="lighting-panel" class="lighting-panel" style="display:none;">
+      <button class="led-btn" id="led-off" data-mode="OFF">OFF</button>
+      <button class="led-btn" id="led-white" data-mode="WHITE">WHITE</button>
+      <button class="led-btn" id="led-blue" data-mode="BLUE">BLUE</button>
+      <button class="led-btn" id="led-purple" data-mode="PURPLE">PURPLE</button>
+      <button class="led-btn" id="led-nexus" data-mode="NEXUS">NEXUS</button>
+      <button class="led-btn" id="led-rainbow" data-mode="RAINBOW">RAINBOW</button>
+    </section>
 
     <footer class="nexus-status">
       <span id="status-dot" class="status-dot"></span>

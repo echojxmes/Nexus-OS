@@ -1,4 +1,5 @@
-const API_BASE = ""; // same origin once served by the Pi
+const API_BASE = "";
+let activeModules = {};
 
 function updateClock() {
   const now = new Date();
@@ -14,10 +15,23 @@ function formatUptime(seconds) {
   return `${h}h ${m}m`;
 }
 
+async function loadModules() {
+  try {
+    const res = await fetch(`${API_BASE}/api/config`);
+    const cfg = await res.json();
+    activeModules = cfg.modules || {};
+    document.getElementById("env-card").style.display =
+      activeModules.environment ? "flex" : "none";
+    document.getElementById("lighting-panel").style.display =
+      activeModules.lighting ? "flex" : "none";
+  } catch (err) {
+    console.error("config load failed", err);
+  }
+}
+
 async function pollSystem() {
   try {
     const res = await fetch(`${API_BASE}/api/system`);
-    if (!res.ok) throw new Error("bad response");
     const data = await res.json();
 
     document.getElementById("cpu").textContent = `${data.cpu}%`;
@@ -36,7 +50,47 @@ async function pollSystem() {
   }
 }
 
-updateClock();
-pollSystem();
-setInterval(updateClock, 1000);
-setInterval(pollSystem, 2000);
+async function pollEnvironment() {
+  if (!activeModules.environment) return;
+  try {
+    const res = await fetch(`${API_BASE}/api/environment`);
+    const data = await res.json();
+    document.getElementById("env-temp").textContent = `${data.temperature}°C`;
+    document.getElementById("env-humidity").textContent = `${data.humidity}% HUMIDITY`;
+  } catch (err) {
+    console.error("environment poll failed", err);
+  }
+}
+
+async function setLedMode(mode) {
+  try {
+    await fetch(`${API_BASE}/api/leds`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ mode }),
+    });
+    document.querySelectorAll(".led-btn").forEach(btn => btn.classList.remove("active"));
+    document.getElementById(`led-${mode.toLowerCase()}`)?.classList.add("active");
+  } catch (err) {
+    console.error("led set failed", err);
+  }
+}
+
+function wireLedButtons() {
+  document.querySelectorAll(".led-btn").forEach(btn => {
+    btn.addEventListener("click", () => setLedMode(btn.dataset.mode));
+  });
+}
+
+async function init() {
+  await loadModules();
+  wireLedButtons();
+  updateClock();
+  pollSystem();
+  pollEnvironment();
+  setInterval(updateClock, 1000);
+  setInterval(pollSystem, 2000);
+  setInterval(pollEnvironment, 3000);
+}
+
+init();

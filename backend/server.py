@@ -1,10 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel
 from pathlib import Path
 
 from system import get_system_stats
 from config import load_config, reload_config
+from hardware import sensors, leds
 
 app = FastAPI(title="NEXUS Backend")
 
@@ -16,9 +18,28 @@ app.add_middleware(
 )
 
 
+class LedMode(BaseModel):
+    mode: str
+
+
 @app.get("/api/system")
 def system_status():
     return get_system_stats()
+
+
+@app.get("/api/environment")
+def environment_status():
+    return sensors.read_environment()
+
+
+@app.get("/api/leds")
+def leds_status():
+    return leds.get_mode()
+
+
+@app.post("/api/leds")
+def set_leds(body: LedMode):
+    return leds.set_mode(body.mode)
 
 
 @app.get("/api/config")
@@ -31,8 +52,6 @@ def reload_config_endpoint():
     return reload_config()
 
 
-# Serve the frontend directly so the Pi can boot straight into
-# Chromium pointed at this server, no separate web server needed.
 frontend_path = Path(__file__).resolve().parent.parent / "frontend"
 app.mount("/", StaticFiles(directory=str(frontend_path), html=True), name="frontend")
 
