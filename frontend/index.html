@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NEXUS</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="nexus-frame">
+    <header class="nexus-header">
+      <span class="nexus-title">NEXUS</span>
+      <span id="clock" class="nexus-clock">--:--:--</span>
+    </header>
+
+    <main class="nexus-grid">
+      <div class="card">
+        <div class="card-label">CPU</div>
+        <div class="card-value" id="cpu">--%</div>
+      </div>
+      <div class="card">
+        <div class="card-label">MEMORY</div>
+        <div class="card-value" id="memory">--%</div>
+      </div>
+      <div class="card">
+        <div class="card-label">STORAGE</div>
+        <div class="card-value" id="storage">--%</div>
+      </div>
+      <div class="card">
+        <div class="card-label">NETWORK</div>
+        <div class="card-value" id="network">--</div>
+      </div>
+      <div class="card">
+        <div class="card-label">UPTIME</div>
+        <div class="card-value" id="uptime">--</div>
+      </div>
+      <div class="card">
+        <div class="card-label">DATE</div>
+        <div class="card-value" id="date">--</div>
+      </div>
+    </main>
+
+    <footer class="nexus-status">
+      <span id="status-dot" class="status-dot"></span>
+      <span id="status-text">CONNECTING</span>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

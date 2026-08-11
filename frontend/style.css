@@ -1,0 +1,93 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  width: 1280px;
+  height: 720px;
+  overflow: hidden;
+  background: #0b0f14;
+  color: #e8f1f2;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+.nexus-frame {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 24px 32px;
+}
+
+.nexus-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 2px solid #1c2733;
+  padding-bottom: 16px;
+}
+
+.nexus-title {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: #4fd1c5;
+}
+
+.nexus-clock {
+  font-size: 28px;
+  font-variant-numeric: tabular-nums;
+  color: #9fb3c8;
+}
+
+.nexus-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
+  padding: 28px 0;
+}
+
+.card {
+  background: #121a24;
+  border: 1px solid #1c2733;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.card-label {
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: #6b7f93;
+}
+
+.card-value {
+  font-size: 48px;
+  font-weight: 600;
+  color: #e8f1f2;
+}
+
+.nexus-status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding-top: 16px;
+  border-top: 2px solid #1c2733;
+  font-size: 16px;
+  letter-spacing: 3px;
+  color: #6b7f93;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #e94b4b;
+}
+
+.status-dot.online {
+  background: #4fd1c5;
+}

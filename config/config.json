@@ -1,0 +1,11 @@
+{
+    "simulation": true,
+    "poll_interval_ms": 2000,
+    "modules": {
+        "system": true,
+        "network": true,
+        "environment": false,
+        "lighting": false,
+        "motion": false
+    }
+}
